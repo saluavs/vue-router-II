@@ -1,0 +1,25 @@
+<template>
+  <header class="masthead" style="background-image: url('/assets/img/chevrolet-blazer.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-10 col-lg-8 mx-auto">
+          <div class="post-heading">
+            <h1><strong>Bienvenido a la Página de Administración</strong></h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+</template>
+
+<script>
+export default {
+    
+}
+</script>
+
+
+<style scoped>
+
+</style>

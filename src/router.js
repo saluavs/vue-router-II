@@ -1,12 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Inicio from './components/Inicio'
-import SobreMi from './components/SobreMi'
-import Contacto from './components/Contacto'
-import Post from "./components/Post.vue"
-import Articulo from './components/Articulo'
+const lazyLoadingInicio   = () => import('./components/Inicio')
+const lazyLoadingContacto = () => import('./components/Contacto')
+const lazyLoadingSobreMi  = () => import('./components/SobreMi')
+const lazyLoadingPost     = () => import('./components/Post')
+// import Articulo from './components/Articulo'
 import NotFound from './components/NotFound'
+import Administrador from './components/Administrador'
+import Simple from './components/Simple'
+import Avanzado from './components/Avanzado'
 
 Vue.use(Router)
 
@@ -16,32 +19,64 @@ export default new Router({
         {
             path: "*",
             component: NotFound,
-          },
+        },
         {
             path: '/',
-            component: Inicio,
-            name: 'inicio'
+            name: 'inicio',
+            component: lazyLoadingInicio
+        },
+        {
+            path: '/inicio',
+            name: 'inicio2',
+            redirect: '/'
+        },
+        {
+            path: '/home',
+            name: 'home',
+            redirect: '/'
+        },
+        {
+            path: '/portada',
+            name: 'portada',
+            redirect: '/'
         },
         {
             path: '/sobremi',
-            component: SobreMi,
-            name: 'sobremi'
+            name: 'sobremi',
+            component: lazyLoadingSobreMi,
+            alias: ['/acerca'],
         },
         {
             path: '/contacto',
-            component: Contacto,
-            name: 'contacto'
+            name: 'contacto',
+            component: lazyLoadingContacto,
+            alias: ['/contactarme'],
         },
         {
             path: '/post/:entrada',
-            component: Post,
+            component: lazyLoadingPost,
             children: [
                 {
                     path: '/',
-                    component: Articulo,
-                    name: 'articulo'
+                    name: 'articulo',
+                    component: () => import('./components/Articulo')
                 }
             ]
-        }
+        },
+        {
+            path: '/administrador',
+            name: 'administrador',
+            component: Administrador,
+            children: [
+                {
+                    path: 'simple',
+                    component: Simple,
+                },
+                {
+                    path: 'avanzado',
+                    component: Avanzado,
+                }
+            ]
+        },
     ]
 })

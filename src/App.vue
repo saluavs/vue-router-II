@@ -31,7 +31,9 @@
         </div>
       </div>
     </nav>
-    <router-view></router-view>
+    <transition name="mi-transicion" mode="out-in">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -43,6 +45,12 @@ export default {
 </script>
 
 <style scoped>
+.mi-transicion-enter-active , .mi-transicion-leave-active{
+  transition: opacity .5s;
+}
+.mi-transicion-enter, .mi-transicion-leave-to {
+  opacity: 0;
+}
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
